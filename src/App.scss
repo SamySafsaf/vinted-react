@@ -1,4 +1,42 @@
-.header-log {
+.body {
+    img {
+        width: 100%;
+        height: 460px;
+        object-fit: cover;
+    }
+    .onHero {
+        width: 410px;
+        height: 270px;
+        background-color: white;
+        position: absolute;
+        top: 200px;
+        left: 70px;
+        padding: 60px 80px 60px 20px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        p {
+            font-size: 34px;
+            line-height: 28.3px;
+            margin-bottom: 35px;
+        }
+        button {
+            width: 190px;
+            height: 50px;
+            border-radius: 5px;
+            border: none;
+            background-color: #2db0ba;
+            color: white;
+            font-size: 16px;
+        }
+        button:hover {
+            cursor: pointer;
+            opacity: 0.5;
+        }
+    }
+}
+
+.header-log,
+.header-deco {
     display: flex;
     justify-content: space-around;
     padding: 30px;
@@ -14,6 +52,7 @@
         border-radius: 5px;
         border: none;
         outline: none;
+        font-size: 20px;
     }
     .links {
         display: flex;
@@ -152,5 +191,70 @@
     }
     a:hover {
         opacity: 0.5;
+    }
+}
+
+.header-deco {
+    button {
+        border: 1px #2db0ba solid;
+        height: 30px;
+        width: 115px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: #2db0ba;
+        border-radius: 5px;
+    }
+    button:hover {
+        cursor: pointer;
+        background-color: #2db0ba;
+        color: white;
+    }
+}
+.all-offers {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    flex-wrap: wrap;
+}
+.home-page {
+    margin-left: 80px;
+    width: 240px;
+    display: flex;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    .div-avatar {
+        margin-bottom: 10px;
+
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        span {
+            font-size: 14px;
+            color: lightgray;
+        }
+    }
+    .link-offer {
+        text-decoration: none;
+        .price {
+            color: black;
+            margin-bottom: 5px;
+        }
+        img {
+            border-radius: 10px;
+            width: 240px;
+            height: 360px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .link-details {
+            color: #c2c2c2;
+            font-size: 13px;
+        }
     }
 }

@@ -35,13 +35,13 @@ const Offer = () => {
                                 <div>
                                     <span>{one.product_price} €</span>
                                     <div>
-                                        Marque :{" "}
+                                        Marque :
                                         {one.product_details[0]["MARQUE"]}
                                     </div>
                                     {one.product_details[1]["TAILLE"] ? (
                                         <div>
                                             <div>
-                                                Taille{" "}
+                                                Taille
                                                 {
                                                     one.product_details[1][
                                                         "TAILLE"
@@ -49,11 +49,11 @@ const Offer = () => {
                                                 }
                                             </div>
                                             <div>
-                                                État{" "}
+                                                État
                                                 {one.product_details[2]["ÉTAT"]}
                                             </div>
                                             <div>
-                                                Couleur{" "}
+                                                Couleur
                                                 {
                                                     one.product_details[3][
                                                         "COULEUR"
