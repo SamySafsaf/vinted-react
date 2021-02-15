@@ -1,18 +1,8 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import hero from "../images/hero.jpg";
-const Home = (props) => {
-    const [data, setData] = useState();
-    const [isLoading, setIsLoading] = useState(true);
+const Home = ({ fetchData, filteredOffers, setFilteredOffers, isLoading }) => {
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await axios.get(
-                "https://lereacteur-vinted-api.herokuapp.com/offers"
-            );
-            setData(response.data);
-            setIsLoading(false);
-        };
         fetchData();
     }, []);
     return isLoading ? (
@@ -25,7 +15,7 @@ const Home = (props) => {
                 <button>Commencer à vendre</button>
             </div>
             <div className="all-offers">
-                {data.offers.map((item, _id) => {
+                {filteredOffers.offers.map((item, _id) => {
                     return (
                         <div key={item._id} className="home-page">
                             <div>
