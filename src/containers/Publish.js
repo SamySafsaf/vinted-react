@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 const Publish = ({ setUser, userToken }) => {
     const history = useHistory();
 
-    const [data, setData] = useState();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState();
@@ -33,11 +32,15 @@ const Publish = ({ setUser, userToken }) => {
             const response = await axios.post(
                 "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
                 formData,
-                { headers: { authorization: `Bearer ${userToken}` } }
+                {
+                    headers: {
+                        authorization: `Bearer ${userToken}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
             );
-            console.log(response.data);
-            setData(response.data);
-            history.push(`/offer/${data._id}`);
+
+            history.push(`/offer/${response.data._id}`);
         } catch (error) {
             console.log(error.message);
         }

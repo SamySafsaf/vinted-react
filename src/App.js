@@ -37,7 +37,7 @@ function App() {
                         <Signup setUser={setUser} />
                     </Route>
                     <Route path="/publish">
-                        <Publish setUser={setUser} />
+                        <Publish setUser={setUser} userToken={userToken} />
                     </Route>
                     <Route>
                         <Home path="/" />

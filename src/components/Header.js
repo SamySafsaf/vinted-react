@@ -6,7 +6,9 @@ const Header = ({ setUser, userToken }) => {
         <div>
             {userToken ? (
                 <div className="header-deco">
-                    <img src={logo} alt="logo-vinted" />
+                    <Link to="/">
+                        <img src={logo} alt="logo-vinted" />
+                    </Link>
                     <input
                         type="search-bar"
                         placeholder="Rechercher des articles"
