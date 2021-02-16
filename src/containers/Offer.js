@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 const Offer = () => {
     const { _id } = useParams();
@@ -9,112 +9,63 @@ const Offer = () => {
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(
-                "https://lereacteur-vinted-api.herokuapp.com/offers"
+                `https://lereacteur-vinted-api.herokuapp.com/offer/${_id}`
             );
             setData(response.data);
             setIsLoading(false);
         };
         fetchData();
-    }, []);
+    }, [_id]);
 
     return isLoading ? (
         <div>En cours de chargement...</div>
     ) : (
-        data.offers.map((one, index) => {
-            return (
-                <div key={index}>
-                    {one._id === _id && (
-                        <div>
-                            {one.product_image.secure_url && (
-                                <img
-                                    src={one.product_image.secure_url}
-                                    alt="offer"
-                                />
-                            )}
+        <div className="offer-container">
+            <div className="div-img-offer">
+                {data.product_image.secure_url && (
+                    <img src={data.product_image.secure_url} alt="offer" />
+                )}
+            </div>
+            <div className="div-name-description">
+                <span>{data.product_price} €</span>
+                <ul>
+                    {data.product_details.map((e, i) => {
+                        const keys = Object.keys(e);
+                        return (
                             <div>
-                                <div>
-                                    <span>{one.product_price} €</span>
-                                    <div>
-                                        Marque :
-                                        {one.product_details[0]["MARQUE"]}
-                                    </div>
-                                    {one.product_details[1]["TAILLE"] ? (
-                                        <div>
-                                            <div>
-                                                Taille
-                                                {
-                                                    one.product_details[1][
-                                                        "TAILLE"
-                                                    ]
-                                                }
-                                            </div>
-                                            <div>
-                                                État
-                                                {one.product_details[2]["ÉTAT"]}
-                                            </div>
-                                            <div>
-                                                Couleur
-                                                {
-                                                    one.product_details[3][
-                                                        "COULEUR"
-                                                    ]
-                                                }
-                                            </div>
-                                            <div>
-                                                EMPLACEMENT{" "}
-                                                {
-                                                    one.product_details[4][
-                                                        "EMPLACEMENT"
-                                                    ]
-                                                }
-                                            </div>
-                                            <div>
-                                                Modes de paiement{" "}
-                                                <span>
-                                                    Carte bancaire, Paypal
-                                                </span>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <div>
-                                                État{" "}
-                                                {one.product_details[1]["ÉTAT"]}
-                                            </div>
-                                            <div>
-                                                Couleur{" "}
-                                                {
-                                                    one.product_details[2][
-                                                        "COULEUR"
-                                                    ]
-                                                }
-                                            </div>
-                                            <div>
-                                                EMPLACEMENT{" "}
-                                                {
-                                                    one.product_details[3][
-                                                        "EMPLACEMENT"
-                                                    ]
-                                                }
-                                            </div>
-                                            <div>
-                                                Modes de paiement{" "}
-                                                <span>
-                                                    Carte bancaire, Paypal
-                                                </span>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Pull Zara tout ça
-                                 */}
+                                <li className="brand-offer">{keys[0]}</li>
+                                <li>{e[keys[0]]}</li>
                             </div>
-                        </div>
-                    )}
+                        );
+                    })}
+                </ul>
+                <div>
+                    <h3>{data.product_name}</h3>
+                    <p>{data.product_description}</p>
+                    <div>
+                        {data.owner.account.avatar && (
+                            <img
+                                src={data.owner.account.avatar.secure_url}
+                                alt="avatar"
+                            />
+                        )}
+                        <span>{data.owner.account.username}</span>
+                    </div>
                 </div>
-            );
-        })
+                <Link
+                    className="link"
+                    to={{
+                        pathname: "/payment",
+                        state: {
+                            _id: _id,
+                            data: data,
+                        },
+                    }}
+                >
+                    Acheter
+                </Link>
+            </div>
+        </div>
     );
 };
 

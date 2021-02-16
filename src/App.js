@@ -3,13 +3,20 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
+// import stripe
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
+import CheckoutForm from "./components/CheckoutForm";
 import Offer from "./containers/Offer";
 import Home from "./containers/Home";
 import Header from "./components/Header";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import Publish from "./containers/Publish";
+
+const stripePromise = loadStripe("pk_test_5z9rSB8XwuAOihoBixCMfL6X");
+
 function App() {
     const [userToken, setUserToken] = useState(
         Cookies.get("userToken") || null
@@ -89,12 +96,18 @@ function App() {
                     <Route path="/publish">
                         <Publish setUser={setUser} userToken={userToken} />
                     </Route>
+                    <Route path="/payment">
+                        <Elements stripe={stripePromise}>
+                            <CheckoutForm />
+                        </Elements>
+                    </Route>
                     <Route path="/">
                         <Home
                             fetchData={fetchData}
                             filteredOffers={filteredOffers}
                             setFilteredOffers={setFilteredOffers}
                             isLoading={isLoading}
+                            userToken={userToken}
                         />
                     </Route>
                 </Switch>

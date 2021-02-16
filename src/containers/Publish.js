@@ -14,7 +14,7 @@ const Publish = ({ setUser, userToken }) => {
     const [size, setSize] = useState();
     const [color, setColor] = useState("");
     const [file, setFile] = useState();
-
+    const [preview, setPreview] = useState();
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
@@ -47,72 +47,134 @@ const Publish = ({ setUser, userToken }) => {
     };
 
     return (
-        <div>
+        <div className="publish">
             <h2>Vends ton article</h2>
             <form onSubmit={handleSubmit}>
-                <input
-                    type="file"
-                    onChange={(e) => {
-                        setFile(e.target.files[0]);
-                    }}
-                />
-                <span>Titre</span>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setTitle(e.target.value);
-                    }}
-                />
-                <span>Description</span>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setDescription(e.target.value);
-                    }}
-                />
-                <span>marque</span>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setBrand(e.target.value);
-                    }}
-                />
-                <span>Taille</span>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setSize(e.target.value);
-                    }}
-                />
-                <span>Couleur</span>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setColor(e.target.value);
-                    }}
-                />
-                <span>État</span>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setCondition(e.target.value);
-                    }}
-                />
-                <span>Lieu</span>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setCity(e.target.value);
-                    }}
-                />
-                <span>Prix</span>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setPrice(e.target.value);
-                    }}
-                />
-                <button type="submit">Publier</button>
+                <div>
+                    <label htmlFor="file">
+                        {preview ? (
+                            <div className="div-onClick">
+                                <img src={preview} alt="" />
+                                <span
+                                    onClick={() => {
+                                        setPreview();
+                                    }}
+                                >
+                                    X
+                                </span>
+                            </div>
+                        ) : (
+                            <div className="div-span">
+                                <span>Ajouter une photo</span>
+                            </div>
+                        )}
+                    </label>
+                    <input
+                        accept="image/*"
+                        id="file"
+                        type="file"
+                        className="file-form"
+                        onChange={(e) => {
+                            setFile(e.target.files[0]);
+                            try {
+                                setPreview(
+                                    URL.createObjectURL(e.target.files[0])
+                                );
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        }}
+                    />
+                </div>
+                <div>
+                    <div>
+                        <span>Titre</span>
+                        <input
+                            placeholder="ex: Chemise Sézane verte"
+                            type="text"
+                            onChange={(e) => {
+                                setTitle(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <span>Description</span>
+                        <input
+                            placeholder="ex: porté quelque fois, taille correctement"
+                            type="text"
+                            onChange={(e) => {
+                                setDescription(e.target.value);
+                            }}
+                        />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <span>Marque</span>
+                        <input
+                            placeholder="ex: Zara"
+                            type="text"
+                            onChange={(e) => {
+                                setBrand(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <span>Taille</span>
+                        <input
+                            placeholder="ex: L/40/12"
+                            type="text"
+                            onChange={(e) => {
+                                setSize(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <span>Couleur</span>
+                        <input
+                            placeholder="ex: Bleu canard"
+                            type="text"
+                            onChange={(e) => {
+                                setColor(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <span>État</span>
+                        <input
+                            placeholder="ex: Neuf avec étiquette"
+                            type="text"
+                            onChange={(e) => {
+                                setCondition(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <span>Lieu</span>
+                        <input
+                            placeholder="ex: Paris"
+                            type="text"
+                            onChange={(e) => {
+                                setCity(e.target.value);
+                            }}
+                        />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <span>Prix</span>
+                        <input
+                            placeholder="ex: 40"
+                            type="text"
+                            onChange={(e) => {
+                                setPrice(e.target.value);
+                            }}
+                        />
+                    </div>
+                </div>
+                <div className="button-publish">
+                    <button type="submit">Publier</button>
+                </div>
             </form>
         </div>
     );

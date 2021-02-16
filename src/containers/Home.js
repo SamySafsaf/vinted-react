@@ -1,10 +1,26 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import hero from "../images/hero.jpg";
-const Home = ({ fetchData, filteredOffers, setFilteredOffers, isLoading }) => {
+
+const Home = ({
+    fetchData,
+    filteredOffers,
+    setFilteredOffers,
+    isLoading,
+    userToken,
+}) => {
     useEffect(() => {
         fetchData();
     }, []);
+    const history = useHistory();
+    const handleClick = (event) => {
+        event.preventDefault();
+        if (userToken) {
+            history.push("/publish");
+        } else {
+            history.push("/login");
+        }
+    };
     return isLoading ? (
         <div>En cours de chargement...</div>
     ) : (
@@ -12,7 +28,7 @@ const Home = ({ fetchData, filteredOffers, setFilteredOffers, isLoading }) => {
             <img src={hero} alt="hero" />
             <div className="onHero">
                 <p>Prêt à faire du tri dans vos placards ?</p>
-                <button>Commencer à vendre</button>
+                <button onClick={handleClick}>Commencer à vendre</button>
             </div>
             <div className="all-offers">
                 {filteredOffers.offers.map((item, _id) => {
