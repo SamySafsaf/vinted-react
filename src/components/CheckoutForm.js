@@ -10,7 +10,6 @@ const CheckoutForm = () => {
 
     const [display, setDisplay] = useState(false);
 
-    const id = location.state._id;
     const offer = location.state.data;
 
     const handleSubmit = async (event) => {

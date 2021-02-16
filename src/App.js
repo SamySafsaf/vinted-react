@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
+
 // import stripe
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
